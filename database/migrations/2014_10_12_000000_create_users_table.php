@@ -17,9 +17,11 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
+            $table->enum('role', ['teacher', 'student']); // Adiciona o campo role
             $table->rememberToken();
-            $table->timestamps();
+            $table->timestamps(); // Isso garante que created_at e updated_at sejam gerados automaticamente
         });
+        
     }
 
     /**
