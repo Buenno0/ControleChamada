@@ -4,15 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Models\ClassModel;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use SimpleSoftwareIO\QrCode\Facades\QrCode;
 
 class ClassController extends Controller
 {
-    public function index()
-    {
-        $classes = ClassModel::with('teacher')->get();
-        return view('classes.index', compact('classes'));
-    }
-
     public function create()
     {
         return view('classes.create');
@@ -27,10 +23,17 @@ class ClassController extends Controller
         ]);
 
         $class = new ClassModel($validated);
-        $class->teacher_id = auth()->id();
+        $class->teacher_id = Auth::id();
         $class->save();
 
-        return redirect()->route('classes.index');
+        // Gerar o QR code
+        $qrCode = QrCode::size(250)->generate(route('classes.show', ['class' => $class->id]));
+        
+        // Salvar o QR code em um diretório
+        $path = public_path('qrcodes/' . $class->id . '.svg');
+        file_put_contents($path, $qrCode);
+
+        return redirect()->route('classes.index')->with('status', 'Aula criada com sucesso!');
     }
 
     public function show(ClassModel $class)

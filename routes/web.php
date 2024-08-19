@@ -4,7 +4,11 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ClassController;
 use App\Http\Controllers\AttendanceController;
+use App\Http\Controllers\QrCodeTestController;
 
+
+
+Route::get('/qrcode-test', [QrCodeTestController::class, 'generate']);
 
 Route::middleware(['auth'])->group(function () {
     Route::get('/classes', [ClassController::class, 'index'])->name('classes.index');
