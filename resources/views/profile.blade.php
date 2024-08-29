@@ -9,5 +9,9 @@
     <p><strong>Email:</strong> {{ $user->email }}</p>
     <p><strong>Created At:</strong> {{ $user->created_at }}</p>
     <p><strong>{{ $user->role }}</strong></p>
+    <form action="{{ route('logout') }}" method="POST">
+        @csrf
+        <button type="submit">Logout</button>
+    </form>
 </body>
 </html>

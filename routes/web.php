@@ -11,6 +11,8 @@ use App\Http\Controllers\QrCodeTestController;
 require __DIR__.'/auth.php';
 
 
+
+Route::post('/classes', [ClassController::class, 'store'])->name('classes.store');
 Route::get('/profile', [UserProfileController::class, 'show'])->name('profile')->middleware('auth');
 
 Route::get('dashboard', function () {
