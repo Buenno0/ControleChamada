@@ -14,3 +14,11 @@
 
     <button type="submit">Criar Aula</button>
 </form>
+@isset($qrCodePath)
+        <div class="mt-4">
+            <h2>QR Code Gerado:</h2>
+            <div class="text-center">
+                <img src="{{ asset($qrCodePath) }}" alt="QR Code da Aula">
+            </div>
+        </div>
+    @endisset

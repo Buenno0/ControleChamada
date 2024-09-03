@@ -60,14 +60,18 @@ class ClassController extends Controller
         $class->save();
 
         // Redirecione para a página de detalhes da aula
-        return redirect()->route('classes.show', ['class' => $class->id])->with('status', 'Aula criada com sucesso!');
+        return redirect()->route('classes.index')
+    ->with([
+        'status' => 'Aula criada com sucesso!',
+        'qrCodePath' => $class->qr_code_path,
+    ]);
     } catch (\Exception $e) {
-        // Exibe a mensagem de erro
-        return back()->withErrors(['error' => $e->getMessage()]);
+        // Em caso de erro, redirecione de volta com uma mensagem de erro
+        return redirect()->back()
+            ->with('error', 'Erro ao criar aula: ' . $e->getMessage());
     }
+
 }
-
-
 
     public function show(ClassModel $class)
     {

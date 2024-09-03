@@ -8,7 +8,7 @@
             {{ session('status') }}
         </div>
     @endif
-    
+    s
     <div class="card">
         <div class="card-body">
             <h2>{{ $class->name }}</h2>
